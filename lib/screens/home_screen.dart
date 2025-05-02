@@ -4,6 +4,7 @@ import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/bloc/todo_event.dart';
 import 'package:to_do_list/bloc/todo_state.dart';
 import 'package:to_do_list/screens/add_edit_todo_screen.dart';
+import 'package:to_do_list/utils/app_constants.dart';
 import 'package:to_do_list/widgets/todo_tile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             return Center(child: Text('Error: ${state.error}'));
           } else if (state is TodoLoadedState) {
             if (state.todos.isEmpty) {
-              return const Center(child: Text('Add Todo Item'));
+              return const Center(child: Text(AppConstants.addTodoItem));
             } else {
               return ListView.builder(
                 itemCount: state.todos.length,
@@ -70,7 +71,7 @@ class HomeScreen extends StatelessWidget {
               );
             }
           } else {
-            return const Center(child: Text('No tasks available'));
+            return const Center(child: Text(AppConstants.noTasks));
           }
         },
       ),

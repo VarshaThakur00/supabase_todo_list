@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/bloc/todo_event.dart';
 import 'package:to_do_list/models/todo_model.dart';
+import 'package:to_do_list/utils/app_constants.dart';
 
 class AddEditTodoScreen extends StatefulWidget {
   final TodoModel? todo;
@@ -57,7 +58,7 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.todo == null ? 'Add Todo' : 'Edit Todo'),
+        title: Text(widget.todo == null ? AppConstants.addTodo : AppConstants.editTodo),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -66,11 +67,11 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: AppConstants.title),
             ),
             TextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(labelText: AppConstants.description),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -80,7 +81,7 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
                   backgroundColor: Colors.blue,
                 ),
                 onPressed: _saveTodo,
-                child: Text(widget.todo == null ? 'Add Todo' : 'Save Todo',style: const TextStyle(color: Colors.white),),
+                child: Text(widget.todo == null ? AppConstants.addTodo : AppConstants.saveTodo,style: const TextStyle(color: Colors.white),),
               ),
             ),
           ],

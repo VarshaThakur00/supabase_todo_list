@@ -1,10 +1,11 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:to_do_list/utils/app_constants.dart';
 
 class NotificationService {
-  static final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin
+      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static Future<void> initialize() async {
     debugPrint('Starting notification service initialization');
@@ -20,7 +21,8 @@ class NotificationService {
       requestSoundPermission: true,
     );
 
-    const InitializationSettings initializationSettings = InitializationSettings(
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
@@ -33,9 +35,9 @@ class NotificationService {
     );
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'todo_channel_id',
-      'Todo Notifications',
-      description: 'Channel for task notifications',
+      AppConstants.notificationChannelId,
+      AppConstants.notificationChannelName,
+      description: AppConstants.notificationChannelDescription,
       importance: Importance.high,
     );
 
@@ -43,9 +45,6 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-
-    debugPrint('Notification channel created successfully');
-
     try {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           _flutterLocalNotificationsPlugin
@@ -54,13 +53,10 @@ class NotificationService {
 
       if (androidImplementation != null) {
         await androidImplementation.requestNotificationsPermission();
-        debugPrint('Android notification permissions requested');
       }
     } catch (e) {
       debugPrint('Error requesting notification permissions: $e');
     }
-
-    debugPrint('Notification service initialization complete');
   }
 
   static Future<void> showNotification({
@@ -68,8 +64,6 @@ class NotificationService {
     required String title,
     required String body,
   }) async {
-    debugPrint('Attempting to show notification: $title');
-
     try {
       await _flutterLocalNotificationsPlugin.show(
         id,
@@ -77,9 +71,9 @@ class NotificationService {
         body,
         const NotificationDetails(
           android: AndroidNotificationDetails(
-            'todo_channel_id',
-            'Todo Notifications',
-            channelDescription: 'Channel for task notifications',
+            AppConstants.notificationChannelId,
+            AppConstants.notificationChannelName,
+            channelDescription: AppConstants.notificationChannelDescription,
             importance: Importance.high,
             priority: Priority.high,
             icon: '@mipmap/ic_launcher',
@@ -87,7 +81,6 @@ class NotificationService {
           iOS: DarwinNotificationDetails(),
         ),
       );
-      debugPrint('Notification sent successfully');
     } catch (e) {
       debugPrint('Error showing notification: $e');
     }
