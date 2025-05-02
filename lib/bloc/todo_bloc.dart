@@ -1,15 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo_model.dart';
 import 'package:to_do_list/services/supabase_service.dart';
+import 'package:to_do_list/notifications/notification_service.dart'; 
 import 'todo_event.dart';
 import 'todo_state.dart';
+
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final SupabaseService supabaseService;
 
   TodoBloc({required this.supabaseService}) : super(TodoInitialState()) {
-   
     on<TodoEvent>(_handleEvent);
-    add(LoadTodosEvent());  }
+    add(LoadTodosEvent());
+  }
 
   Future<void> _handleEvent(TodoEvent event, Emitter<TodoState> emit) async {
     if (event is LoadTodosEvent) {
@@ -27,6 +29,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     if (event is AddTodoEvent) {
       try {
         await supabaseService.addTodo(event.title, event.description);
+
+    
+        await NotificationService.showNotification(
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: 'New Task Added',
+          body: event.title,
+        );
+
         add(LoadTodosEvent());
       } catch (e) {
         emit(TodoErrorState(error: e.toString()));
