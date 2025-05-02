@@ -58,7 +58,8 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.todo == null ? AppConstants.addTodo : AppConstants.editTodo),
+        title: Text(
+            widget.todo == null ? AppConstants.addTodo : AppConstants.editTodo),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -71,7 +72,8 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
             ),
             TextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(labelText: AppConstants.description),
+              decoration:
+                  const InputDecoration(labelText: AppConstants.description),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -81,7 +83,12 @@ class AddEditTodoScreenState extends State<AddEditTodoScreen> {
                   backgroundColor: Colors.blue,
                 ),
                 onPressed: _saveTodo,
-                child: Text(widget.todo == null ? AppConstants.addTodo : AppConstants.saveTodo,style: const TextStyle(color: Colors.white),),
+                child: Text(
+                  widget.todo == null
+                      ? AppConstants.addTodo
+                      : AppConstants.saveTodo,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],

@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/models/todo_model.dart';
 import 'package:to_do_list/services/supabase_service.dart';
-import 'package:to_do_list/notifications/notification_service.dart'; 
+import 'package:to_do_list/notifications/notification_service.dart';
+import 'package:to_do_list/utils/app_constants.dart'; 
 import 'todo_event.dart';
 import 'todo_state.dart';
 
@@ -33,7 +34,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     
         await NotificationService.showNotification(
           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-          title: 'New Task Added',
+          title: AppConstants.newTaskAdded,
           body: event.title,
         );
 

@@ -8,6 +8,8 @@ class AppConstants {
   static const String notificationChannelName = 'Todo Notifications';
   static const String notificationChannelDescription =
       'Channel for task notifications';
+  static const String newTaskAdded = 'New Task Added';
+
 
   // Labels & Text
   static const String addTodo = 'Add Todo';
