@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:to_do_list/bloc/todo_bloc.dart';
 import 'package:to_do_list/screens/home_screen.dart';
 import 'package:to_do_list/services/supabase_service.dart';
-import 'package:to_do_list/notifications/notification_service.dart'; // <-- Add this
+import 'package:to_do_list/notifications/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ void main() async {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoeGZwaWpuc3F5a3BjeGx1ZGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYwODg1NDMsImV4cCI6MjA2MTY2NDU0M30.IixC0d9lVT_jr-YxC_q-M8ZzCWFUT0sri9vOtHTLNL8',
   );
 
-  await NotificationService.initialize(); // <-- Initialize notifications
+  await NotificationService.initialize(); 
 
   runApp(const MyApp());
 }
